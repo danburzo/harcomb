@@ -89,10 +89,11 @@ const entries = (
 const outdir = args.options.outdir || '.';
 
 entries.forEach(async entry => {
+	const entry_url = new URL(entry.request.url);
 	const entry_path = fileURLToPath(
 		new URL(
-			new URL(entry.request.url).pathname,
-			'file:///'
+			`${entry_url.hostname}${entry_url.pathname}`,
+			`file:///`
 		)
 	).replace(/\/$/, '');
 	if (command === 'list' || command === 'ls') {

@@ -94,13 +94,13 @@ entries.forEach(async entry => {
 			new URL(entry.request.url).pathname,
 			'file:///'
 		)
-	);
+	).replace(/\/$/, '');
 	if (command === 'list' || command === 'ls') {
 		console.log(entry_path);
 	}
 	if (command === 'extract') {
 		const output_path = join(outdir, entry_path);
-		let output_data = entry.response.content.text;
+		let output_data = entry.response.content.text || '';
 		switch (entry.response.content.encoding) {
 			case 'base64':
 				output_data = atob(output_data);

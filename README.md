@@ -18,13 +18,36 @@ npx harcomb list my-file.har
 
 ## Available commands 
 
-### `harcomb list`
+### `list` / `ls`
+
+List the URLs of all the entries in the HAR file. 
+
+```bash
+harcomb list my-file.har
+```
+
+This is more or less equivalent to his `jq` query:
+
+```bash
+ jq -r '.log.entries[].request.url' my-file.har
+ ```
+
+Options:
 
 * `mimetype` — filter by the MIME type of the response.
 
-### `harcomb extract`
+### `extract`
+
+Extract the content of the entries in the HAR file to the disk, in a file hierarchy that reproduces the URL structure. 
+
+```bash
+harcomb extract my-file.har
+```
+
+Options:
 
 * `mimetype` — filter by the MIME type of the response.
-* `outdir` — output directory.
+* `outdir` — output directory, by default the CWD (current working directory).
 * `force` — overwrite any existing files.
 
+> You can use `harcomb list` as a dry-run to inspect the set of entries that would be written to disk.

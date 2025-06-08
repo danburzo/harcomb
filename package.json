@@ -8,9 +8,7 @@
   "author": "Dan Burzo",
   "license": "MIT",
   "dependencies": {
-    "opsh": "^1.1.0"
-  },
-  "devDependencies": {
+    "opsh": "^1.1.0",
     "whatwg-mimetype": "^4.0.0"
   }
 }

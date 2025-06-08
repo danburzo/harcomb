@@ -2,14 +2,15 @@
   "name": "harcomb",
   "type": "module",
   "version": "0.0.1",
-  "description": "Command-line tool to work with HAR (HTTP Archive) files.",
+  "description": "A command-line tool to comb through HAR (HTTP Archive) files.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "homepage": "https://github.com/danburzo/harcomb",
   "author": "Dan Burzo",
   "license": "MIT",
   "dependencies": {
     "opsh": "^1.1.0"
+  },
+  "devDependencies": {
+    "whatwg-mimetype": "^4.0.0"
   }
 }

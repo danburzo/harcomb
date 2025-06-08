@@ -1,2 +1,3 @@
 # harcomb
-Command-line tool to work with HAR (HTTP Archive) files.
+
+A command-line tool to comb through HAR (HTTP Archive) files.

@@ -1,0 +1,15 @@
+{
+  "name": "harcomb",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Command-line tool to work with HAR (HTTP Archive) files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Burzo",
+  "license": "MIT",
+  "dependencies": {
+    "opsh": "^1.1.0"
+  }
+}

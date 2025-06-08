@@ -7,6 +7,9 @@
   "homepage": "https://github.com/danburzo/harcomb",
   "author": "Dan Burzo",
   "license": "MIT",
+  "bin": {
+    "harcomb": "./index.js"
+  },
   "dependencies": {
     "opsh": "^1.1.0",
     "whatwg-mimetype": "^4.0.0"

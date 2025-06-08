@@ -2,6 +2,20 @@
 
 A command-line tool to comb through HAR (HTTP Archive) files.
 
+## Usage
+
+Harcomb can be installed globally from the npm registry:
+
+```bash
+npm install -g harcomb
+```
+
+It can also be used without installation with `npx`:
+
+```bash
+npx harcomb list my-file.har
+```
+
 ## Available commands 
 
 ### `harcomb list`

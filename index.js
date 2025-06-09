@@ -45,17 +45,6 @@ if (!command || commands.indexOf(command) === -1) {
 	process.exit(1);
 }
 
-/*
-	Desired commands:
-
-	* list
-		* list selectively
-			* list by mime type? (eg. --mime='image/*')
-	* extract
-		* Handle duplicate filenames
-		* extract selectively (e.g. only images)
-*/
-
 function sortByTiming(a, b) {
 	return new Date(a.startedDateTime) - new Date(b.startedDateTime);
 }
@@ -88,18 +77,19 @@ const entries = (
 
 const outdir = args.options.outdir || '.';
 
-entries.forEach(async entry => {
-	const entry_url = new URL(entry.request.url);
-	const entry_path = fileURLToPath(
-		new URL(
-			`${entry_url.hostname}${entry_url.pathname}`,
-			`file:///`
-		)
-	).replace(/\/$/, '');
-	if (command === 'list' || command === 'ls') {
-		console.log(entry_path);
-	}
-	if (command === 'extract') {
+if (command === 'list' || command === 'ls') {
+	entries.forEach(entry => {
+		console.log(entry.request.url);
+	});
+} else if (command === 'extract') {
+	entries.forEach(async entry => {
+		const entry_url = new URL(entry.request.url);
+		const entry_path = fileURLToPath(
+			new URL(
+				`${entry_url.hostname}${entry_url.pathname}`,
+				`file:///`
+			)
+		).replace(/\/$/, '');
 		const output_path = join(outdir, entry_path);
 		let output_data = entry.response.content.text || '';
 		switch (entry.response.content.encoding) {
@@ -111,8 +101,8 @@ entries.forEach(async entry => {
 			encoding: 'binary',
 			flag: args.options.force ? 'w' : 'wx'
 		});
-	}
-});
+	});
+}
 
 async function slurp(stream) {
 	let arr = [], len = 0;
@@ -134,4 +124,52 @@ async function outputHelp() {
 	console.log(`${pkg.name} ${pkg.version}`);
 	console.log(`${pkg.description}`);
 	console.log(`Homepage: ${pkg.homepage}`);
+	console.log(
+`Usage:
+  
+    harcomb [command] [options] [file1, [file2, ...]]
+
+    Operands are one or more files provided by file path.
+    Using '-' (dash) as an operand reads from the standard input (STDIN).
+    When no operands are provided, input is read from STDIN.
+
+General options:
+
+    -h, --help
+        Output help information.
+
+    -v, --version
+        Output program version.
+
+Commands:
+
+    list
+    ls
+        List the URLs of the entries.
+
+    extract
+        Extract the content of the entries to the disk, 
+        in a file hierarchy that reproduces the URL structure.
+
+Options:
+
+    --mimetype=<mimetype>
+        Filter the entries by the MIME type of their response.
+        To specify all subtypes of a type use the wildcard character,
+        e.g. '--mimetype="image/*"' for images of all formats.
+
+    --outdir=<outdir>
+        Specifies the output directory that the 'extract' command
+        uses as the root of the extracted file hierarchy. 
+        It defaults to the current working directory.
+    
+    --force
+        The 'extract' command does not overwrite existing files 
+        by default, and will throw an error when it encounters one. 
+        Use the '--force' flag to enable overwriting.
+
+Examples:
+
+    harcomb extract my-file.har --outdir=images --mimetype="image/*"
+`);
 }

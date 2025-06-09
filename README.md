@@ -26,7 +26,7 @@ List the URLs of all the entries in the HAR file.
 harcomb list my-file.har
 ```
 
-This is more or less equivalent to his `jq` query:
+This is more or less equivalent to this `jq` query:
 
 ```bash
  jq -r '.log.entries[].request.url' my-file.har
